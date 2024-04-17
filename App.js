@@ -2,7 +2,7 @@ const express =require('express');
 require("dotenv").config()
 const connection=require("./Connection/db");
 const userRoute=require("./Route/userRoute")
-const productRoute=require("./Route/productRoute")
+const productRoute=require("./Route/ProductRoute")
 const cartRoute=require("./Route/cartRoute")
 const auth=require("./middleware/auth")
 const app =express();
