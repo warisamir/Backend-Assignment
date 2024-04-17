@@ -1,17 +1,26 @@
-const express = require("express");
-// const userModel = require("../models/usermodel");
-const userController = require("../controller/userController");
+const express=require("express")
+// const userModel=require("../models/usermodel")
+const userController=require("../controller/userController")
 
-const userRouter = express.Router();
+const userrouter=express.Router();
 
-userRouter.post("/sendotp", userController.sendOtp);
-userRouter.post("/verifyotp", userController.verifyOtp);
-userRouter.post("/verifyotplogin", userController.verifiedLoginOtp);
+
+userrouter.post("/sendotp",userController.sendOtp)
+userrouter.post("/verifyotp",userController.verifyOtp)
+userrouter.post("/verifyotplogin",userController.verifyOtplogin)
+
+
 
 // Route for user registration
-userRouter.post("/register", userController.NewUser);
+userrouter.post("/register", userController.registerUser);
 
 // Route for user login
-userRouter.post("/login", userController.loginUser);
+userrouter.post("/login", userController.loginUser);
 
-module.exports = userRouter;
+
+
+
+
+
+
+module.exports=userrouter
