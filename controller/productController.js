@@ -1,20 +1,22 @@
-
-
-
 const Product = require("../models/product");
 
 const addProduct = async (req, res) => {
   try {
-    const { name, description, price, category,rating } = req.body;
-    const image = req.file.filename;
+    const { name, description, price, category, rating } = req.body;
+    const image = req.file ? req.file.filename : null; // Check if file was uploaded
+
+    if (!name || !description || !price || !category || !rating || !image) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     // Create a new product
-    const newProduct = new Product({ name, description, price, category, image,rating });
+    const newProduct = new Product({ name, description, price, category, image, rating });
     await newProduct.save();
 
     return res.status(201).json({ message: "Product added successfully", product: newProduct });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    console.error("Error adding product:", error);
+    return res.status(500).json({ message: "Failed to add product", error: error.message });
   }
 };
 
@@ -32,6 +34,7 @@ const viewProductById = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 const viewAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -46,4 +49,4 @@ const viewAllProducts = async (req, res) => {
   }
 };
 
-module.exports = { addProduct,viewProductById,viewAllProducts };
+module.exports = { addProduct, viewProductById, viewAllProducts };
